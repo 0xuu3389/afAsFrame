@@ -158,22 +158,24 @@ class Base:
         json = self.reques.set_changeMachine(url)
         data = json.get('Data')
         print('data====>', data)
-        if data:
-            print(f'{deviceData.packageName}包名存在')
-            Dialog.toast(f'{deviceData.packageName}包名存在')
-            return True
-        else:
-            print(f'{deviceData.packageName}包名不存在')
-            Dialog.toast(f'{deviceData.packageName}包名不存在', 5000)
-            return False
+
+        '''注释判断应用存在的逻辑'''
+        # if data:
+        #     print(f'{deviceData.packageName}包名存在')
+        #     Dialog.toast(f'{deviceData.packageName}包名存在')
+        #     return True
+        # else:
+        #     print(f'{deviceData.packageName}包名不存在')
+        #     Dialog.toast(f'{deviceData.packageName}包名不存在', 5000)
+        #     return False
 
     def changeIp(self, deviceData):
         new_ip = self.chang_vpn_func_ip(deviceData)
         pass
 
-    '''脚本运行函数'''
 
     def run_base(self, deviceData):
+        print("=========================run_base=========================")
         while True:
             self.clean_backend()
             self.packageName = deviceData.packageName
@@ -184,6 +186,7 @@ class Base:
                 break
         '''切换 ip'''
         new_ip = self.chang_vpn_func_ip(deviceData)
+
         phone_sdk = gaidData.get('Data').get('phone_sdk')
         deviceData.imei = gaidData.get('Data').get('imei')
         phone_brand = gaidData.get('Data').get('phone_brand')

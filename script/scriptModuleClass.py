@@ -3,8 +3,8 @@ import random
 import time
 from ..taskPackage.transferTask import Task_Alloc
 from .conversionServiceImple import converServiceImple
-from .retainedServiceImple import  retainServiceImple
-from .configTask import  configTask
+from .retainedServiceImple import retainServiceImple
+from .configTask import configTask
 from .base import Base
 from ascript.android.ui import Dialog
 from .deviceByData import dataDeviceBy
@@ -14,6 +14,8 @@ from ascript.android.system import R
 from .sdFileStore import fileStore
 # 隐藏悬浮窗
 from ascript.android.ui import FloatWindow
+
+
 class moduleClass:
     def __init__(self):
         self.converServiceImpleBase = converServiceImple()
@@ -28,7 +30,7 @@ class moduleClass:
         self.wait_time = 0  # 初始等待时间为0秒
         self.max_wait_time = 180  # 最大等待时间为3分钟（180秒）
 
-    def tunnel(self,k, v):
+    def tunnel(self, k, v):
         if k == "close":
             print(v)  # 用户点X关闭了窗口
         elif k == "res":
@@ -36,17 +38,17 @@ class moduleClass:
             resobj = json.loads(v)
             print(resobj)
             deviceNum = resobj['userIp']
-            print('deviceNum=========>',deviceNum)
+            print('deviceNum=========>', deviceNum)
             self.configTask_modele(deviceNum)
 
     def init_page(self):
         print("初始化界面")
-        formw = WebWindow(R.ui('form.html'),self.tunnel)
+        formw = WebWindow(R.ui('form.html'), self.tunnel)
         formw.gravity(1 | 1)
         formw.show()
 
-    #配置任务信息
-    def configTask_modele(self,deviceNum):
+    # 配置任务信息
+    def configTask_modele(self, deviceNum):
         print('执行任务')
         # while True:
         try:
@@ -114,15 +116,16 @@ class moduleClass:
         except Exception as e:
             print(f"configTask_modele 出现异常: {e}")
 
-    #转化模块
-    def conversion_modele(self,deviceData,response):
+    # 转化模块
+    def conversion_modele(self, deviceData, response):
         self.fileBase.check_sdFile(deviceData)
         Dialog.toast("更新脚本完成")
-        packStatus = self.base.check_package(deviceData)
-        if not packStatus:
-            return
-        isSuccess = self.base.run_base(deviceData)
-
+        # packStatus = self.base.check_package(deviceData)
+        self.base.check_package(deviceData)
+        # if not packStatus:
+        #     return
+        # isSuccess = self.base.run_base(deviceData)
+        self.base.run_base(deviceData)
         '''注释后面请求点击连接相关的代码'''
         # if isSuccess:
         #     print('----计算时间--')
@@ -163,8 +166,7 @@ class moduleClass:
         #         self.base.clean_backend()
         time.sleep(2)
 
-
-    def second_conversion_modele(self,deviceData):
+    def second_conversion_modele(self, deviceData):
         self.fileBase.check_sdFile(deviceData)
         Dialog.toast("更新脚本完成")
         # 加载脚本
@@ -185,23 +187,23 @@ class moduleClass:
         else:
             self.fileBase.delete()
 
-    #留存模块
-    def Retained_modele(self,retain_data):
+    # 留存模块
+    def Retained_modele(self, retain_data):
         print('留存模块')
         self.fileBase.check_sdFile(retain_data)
         Dialog.toast("更新脚本完成")
         self.base.changeIp(retain_data)
-        #删除留存
+        # 删除留存
         data_list = self.retainBase.service_getBackupList(retain_data)
         data = data_list.get('Data')
         if data is not None:
             # 提取所有字典中的 m_imei
             imei_list = [item['m_imei'] for item in data]
-            print('imei_list===>',imei_list)
-            print('retain_imei======>',retain_data.retain_imei)
+            print('imei_list===>', imei_list)
+            print('retain_imei======>', retain_data.retain_imei)
             if retain_data.retain_imei in imei_list:
                 print('存在')
-                #还原备份
+                # 还原备份
                 code = self.retainBase.service_restoreBackup(retain_data)
                 if code:
                     runStatus = self.task_base.task_excut(retain_data)
@@ -211,9 +213,9 @@ class moduleClass:
                         print('uploadStatus===>上报成功')
                         time.sleep(1)
                         backStatus = self.retainBase.services_back()
-                        #上报备份状态
+                        # 上报备份状态
                         upstatus = self.retainBase.services_backupsstatus(retain_data, backStatus)
-                        print('上报备份状态==>',upstatus)
+                        print('上报备份状态==>', upstatus)
                         time.sleep(1)
                         self.fileBase.delete()
                         self.retainBase.service_delBackup(retain_data)
@@ -224,12 +226,13 @@ class moduleClass:
                 self.retainBase.imie_delBackup(retain_data)
         time.sleep(2)
 
-    def Click_task(self,deviceData):
+    def Click_task(self, deviceData):
         self.fileBase.check_sdFile(deviceData)
         Dialog.toast("更新脚本完成")
         packStatus = self.base.check_package(deviceData)
-        if not packStatus:
-            return
+        # if not packStatus:
+        #     return
+        self.base.check_package(deviceData)
         isSuccess = self.base.run_base(deviceData)
         if isSuccess:
             print('----计算时间--')
@@ -237,6 +240,6 @@ class moduleClass:
             # 请求web
             webStatus = self.converServiceImpleBase.service_requestOfferUrl(deviceData)
             if webStatus:
-                print('webStatus==>','点击正常')
+                print('webStatus==>', '点击正常')
                 time.sleep(1)
                 self.fileBase.delete()
