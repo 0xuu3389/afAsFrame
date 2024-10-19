@@ -97,10 +97,11 @@ class moduleClass:
                             elif task_type == 5:
                                 print('重启手机')
                             elif task_type == 9:
-                                print('点击任务')
+                                # print('点击任务')
                                 self.fileBase.writeFile(response)
                                 deviceData = dataDeviceBy(response.get('taskList'))
                                 self.Click_task(deviceData)
+
                     else:
                         Dialog.toast("获取任务失败", 2000)
                         self.wait_time = min(self.wait_time + 60, self.max_wait_time)  # 增加等待时间，但不超过最大值
@@ -234,12 +235,12 @@ class moduleClass:
         #     return
         self.base.check_package(deviceData)
         isSuccess = self.base.run_base(deviceData)
-        if isSuccess:
-            print('----计算时间--')
-            # 计算正态分布
-            # 请求web
-            webStatus = self.converServiceImpleBase.service_requestOfferUrl(deviceData)
-            if webStatus:
-                print('webStatus==>', '点击正常')
-                time.sleep(1)
-                self.fileBase.delete()
+        # if isSuccess:
+        #     print('----计算时间--')
+        #     # 计算正态分布
+        #     # 请求web
+        #     webStatus = self.converServiceImpleBase.service_requestOfferUrl(deviceData)
+        #     if webStatus:
+        #         print('webStatus==>', '点击正常')
+        #         time.sleep(1)
+        #         self.fileBase.delete()
