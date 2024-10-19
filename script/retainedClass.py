@@ -1,0 +1,20 @@
+class reTainedClazz:
+    def __init__(self, data):
+        # 从字典中提取并赋值给类属性
+        self.retain_record_id = data.get('retain_record_id')
+        self.retain_task_id = data.get('retain_task_id')
+        self.task_id = data.get('task_id')
+        self.gaid = data.get('gaid')
+        self.retain_imei = data.get('retain_imei')
+        self.task_name = data.get('task_name')
+        self.packageName = data.get('packageName')
+        self.country = data.get('bundle_nation')
+        self.retain_time = data.get('retain_time')
+        self.play_time = data.get('play_time')
+        self.deviceNum = data.get('deviceNum')
+        self.vpn_port = data.get('vpn_port')
+        self.vpn_port_copy = data.get('vpn_port_copy')
+        self.vpn_link = data.get('vpn_link')
+        self.task_type = data.get('task_type')
+        self.retain_del = data.get('retain_del')
+        self.version = data.get('version')

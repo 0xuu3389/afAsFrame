@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title>VForm Demo</title>
+<!--    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.7/theme-chalk/index.min.css">-->
+    <link rel="stylesheet" href="./dist/vant212.min.css"/>
+    <link rel="stylesheet" href="./dist/VmFormRender.umd.min.css">
+    <style type="text/css">
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <vm-form-render :form-json="formJson" :form-data="formData" :option-data="optionData" ref="vmFormRef">
+    </vm-form-render>
+    <van-button type="primary" @click="submitForm" block>开始运行</van-button>
+</div>
+
+<script type="text/javascript">
+    if (!!window.ActiveXObject || "ActiveXObject" in window) { //IE load polyfill.js for Promise
+        var scriptEle = document.createElement("script");
+        scriptEle.type = "text/javascript";
+        scriptEle.src = "https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js"
+        document.body.appendChild(scriptEle)
+    }
+</script>
+<script src="./dist/ui.js"></script>
+<script src="./dist/vue2.6.14.min.js"></script>
+<!--<script src="https://cdn.staticfile.org/element-ui/2.15.7/index.min.js"></script>-->
+<script src="./dist/vant2.12.min.js"></script>
+<script src="./dist/VmFormRender.umd.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            formJson: ui,
+            formData: localStorage.getItem("ui") ? JSON.parse(localStorage.getItem("ui")) : {},
+            optionData: {}
+        },
+        methods: {
+            submitForm() {
+                this.$refs.vmFormRef.getFormData().then((formData) => {
+                    const dataS = JSON.stringify(formData)
+                    console.log(dataS)
+                    localStorage.setItem("ui", dataS)
+                    airscript.call("data", dataS)
+                    airscript.close()
+                }).catch(function (error) {
+                    // Form Validation Failed
+                    console.log(error)
+                })
+            }
+        }
+    });
+</script>
+</body>
+</html>

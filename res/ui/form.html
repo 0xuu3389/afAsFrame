@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>测试 - Layui</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+
+<body class="layui-bg-gray">
+<div style="">
+    <div class="layui-col-xs12 layui-bg-blue"
+         style="display: flex; margin: 0;height:50px; margin-bottom: 10px; position: fixed; top: 0px; left: 0px; z-index: 10;">
+        <div class="layui-col-xs4" style="display: flex; ">
+            <button id="asui_close" type="button" class="layui-btn layui-bg-blue" style=" margin: auto 0;">
+                <i class="layui-icon layui-icon-close"></i>
+            </button>
+        </div>
+        <div class="layui-col-xs4" style="display: flex;">
+            <h4 style="margin: auto;">前台管理系统</h4>
+        </div>
+        <div class="layui-col-xs4" style="display: flex;">
+            <button id="asui_submit" type="button" class="layui-btn layui-btn-warm layui-btn-radius"
+                    style="margin:auto; margin-right: 10px;">确定
+            </button>
+        </div>
+    </div>
+
+    <div style="left: 0px; width: 100%; overflow: scroll; padding-top: 60px; ">
+        <form class="layui-form " style="margin-left: 10px; margin-right: 10px; padding-bottom: 10px;">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">设备编号</label>
+                    <div class="layui-input-inline">
+                        <input id="appui_user" type="text" name="price_min" placeholder="请输入设备编号" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- body 末尾处引入 layui -->
+<script src="layui/layui.js"></script>
+<script src="js/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        $("#asui_submit").click(function (e) {
+            uisubmit()
+        });
+
+        $("#asui_close").click(function (e) {
+            //发送关闭指令
+            airscript.call("close", "用户点了关闭")
+            airscript.close();
+        });
+    });
+    function uisubmit() {
+        var res = {}
+        res.userIp = $("#appui_user").val();
+        //因为 airscript 只能传递string ,因此将对象格式化为jsonString
+        resStr = JSON.stringify(res)
+        console.log("resStr====>", resStr)
+        //发送数据
+        airscript.call("res", resStr)
+        // 关闭窗口
+        airscript.close();
+    }
+</script>
+</body>
+
+</html>
