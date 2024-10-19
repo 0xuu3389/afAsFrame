@@ -121,22 +121,30 @@ class moduleClass:
         packStatus = self.base.check_package(deviceData)
         if not packStatus:
             return
-        #然后选择对应的包名进行改机
         isSuccess = self.base.run_base(deviceData)
+
+        '''注释后面请求点击连接相关的代码'''
         # if isSuccess:
         #     print('----计算时间--')
         #     # 计算正态分布
         #     # 总体时间
         #     total_ctit_sumTime = self.converServiceImpleBase.cal_ctit(deviceData.offerClickDelay,deviceData.clickDownloadtimedelay,deviceData.apkLunchstimedelay,deviceData.apkDownloadSucesstimedelay)
         #     print('total_ctit_sumTime===>',total_ctit_sumTime)
+        ''' 请求 offer（点击连接）'''
         #     # 请求web
         #     webExecppt = self.converServiceImpleBase.service_requestOfferUrl(deviceData)
         #     if webExecppt:
         #         self.fileBase.writeFile(response)
         #         if total_ctit_sumTime is not None:
         #             print('----total_ctit_sumTime--------')
+        '''
+        等待一段时间后自动打开APP
+        '''
         #             self.converServiceImpleBase.wait_ctiTime(total_ctit_sumTime,deviceData.packageName)
         #             #加载脚本 返回是否转化
+        '''
+        task_excut: 对目标APP操作的具体流程
+        '''
         #             respStatus = self.task_base.task_excut(deviceData)
         #             self.converServiceImpleBase.services_killApp(deviceData.packageName)
         #             if respStatus:
