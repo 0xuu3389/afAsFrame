@@ -10,4 +10,4 @@ from ascript.android import node
 from ascript.android import screen
 from .script.scriptTask import TaskClass
 print("Hello AS!")
-
+print("yujing 123!")

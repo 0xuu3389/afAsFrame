@@ -9,6 +9,8 @@ import numpy as np
 from .scritptRequest import scriptReq
 from .base_req import BaseReq
 from ascript.android import action
+
+
 class converServiceImple:
     def __init__(self):
         self.scriptReqBase = scriptReq()
@@ -17,9 +19,9 @@ class converServiceImple:
         self.changeAPI = "http://127.0.0.1:8766"
         pass
 
-    #请求web
-    #http://58.56.44.30:9083/api//api/job/requestOfferUrl?clickReportId=15928107
-    def service_requestOfferUrl(self,deviceData):
+    # 请求web
+    # http://58.56.44.30:9083/api//api/job/requestOfferUrl?clickReportId=15928107
+    def service_requestOfferUrl(self, deviceData):
         shell_url = f'http://127.0.0.16:8766/do?type=Web'
         data = {"url": deviceData.url}
         response = self.scriptReqBase.shell_user_web(shell_url, data)
@@ -32,11 +34,12 @@ class converServiceImple:
         else:
             Dialog.toast('网络异常')
             return False
-    #计算时间
-    def wait_ctiTime(self,citiTime,packageName):
+
+    # 计算时间
+    def wait_ctiTime(self, citiTime, packageName):
         start_time = time.time()
         duration = citiTime
-        toast_interval = random.randint(5,10)
+        toast_interval = random.randint(5, 10)
         last_toast_time = 0  # 上一次显示toast的时间
         while True:
             current_time = time.time()
@@ -50,7 +53,7 @@ class converServiceImple:
                 break
             # 每次都会随机生成一个新的toast间隔
             if current_time - last_toast_time >= toast_interval:
-                Dialog.toast(f"还剩余ctit {remaining_time} 秒",2000)
+                Dialog.toast(f"还剩余ctit {remaining_time} 秒", 2000)
                 last_toast_time = current_time
                 toast_interval = random.randint(5, 10)  # 重新生成新的随机间隔
 
@@ -87,11 +90,12 @@ class converServiceImple:
                 button1.click()
             if loginBtn is not None:
                 loginBtn.click()
+
     def services_back(self):
         while True:
             back_Url = 'http://127.0.0.1:8766/do?type=Back'
             respon = self.scriptReqBase.shell_user_get(back_Url)
-            print('respon--->',respon)
+            print('respon--->', respon)
             if '备份成功' in respon.get('Msg'):
                 return 1
             else:
@@ -99,7 +103,7 @@ class converServiceImple:
                 self.open_gaiji()
             time.sleep(2)
 
-    def services_killApp(self,package):
+    def services_killApp(self, package):
         self.open_gaiji()
         while True:
             killStatus = self.scriptReqBase.shell_user_kill(package)
@@ -111,21 +115,21 @@ class converServiceImple:
                 self.open_gaiji()
             time.sleep(2)
 
-    def secode_gaid(self,deviceData):
+    def secode_gaid(self, deviceData):
         url = self.changeAPI + "/do?type=Set_Gaid"
         data = {
-                  "gaid": deviceData.gaid
-                }
-        gaidData = self.reques.shell_user_post(url,data)
-        print('gaid===>',gaidData)
+            "gaid": deviceData.gaid
+        }
+        gaidData = self.reques.shell_user_post(url, data)
+        print('gaid===>', gaidData)
         Gaid = gaidData.get('Data').get('gaid')
         if Gaid:
-            print('Gaid=设置成功=>',Gaid)
+            print('Gaid=设置成功=>', Gaid)
             deviceData.imei = gaidData.get('Data').get('imei')
             return True
         return False
 
-    def services_backupsstatus(self,deviceData,status):
+    def services_backupsstatus(self, deviceData, status):
         url = f'http://hwadmin.xiaotwo.cn/task/backupsstatus?task_id={deviceData.task_id}&android_id={deviceData.deviceNum}&task_record_id={deviceData.task_record_id}&retain_imei={deviceData.imei}&backups_status={status}'
         resp = self.scriptReqBase.check_task_req(url)
         code = resp.get('code')
@@ -169,20 +173,3 @@ class converServiceImple:
         sigma = (max_val - mu) / 3
         s = np.random.normal(mu, sigma, 1)[0]  # 直接获取数组中的第一个元素
         return round(s)  # 使用 round() 四舍五入并返回整数
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
