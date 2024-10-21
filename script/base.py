@@ -113,7 +113,7 @@ class Base:
         Dialog.toast('勾选APK')
         # url = self.changeAPI + "/do?type=SetDestAppName&packagename=" + deviceData.packageName
         # 随机设置改机的包名，主要为了用于从服务端请求改机数据。
-        url = self.changeAPI + "/do?type=SetDestAppName&packagename=" + "moe.nb4a"
+        url = self.changeAPI + "/do?type=SetDestAppName&packagename=" + "bin.mt.plus.canary"#Mt管理器
         self.reques.set_changeMachine(url)
         time.sleep(1)
         Dialog.toast('刷新设备')

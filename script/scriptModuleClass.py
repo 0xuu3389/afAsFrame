@@ -48,7 +48,7 @@ class moduleClass:
         formw.show()
 
     # 配置任务信息
-    def configTask_modele(self, deviceNum):
+    def configTask_modele(self, deviceNum):# 有文件 or 无文件
         print('执行任务')
         # while True:
         try:
@@ -57,7 +57,7 @@ class moduleClass:
                 print('获取Sd文件信息')
                 task_type = response.get('taskList').get('task_type')
                 print('task_type=====>', task_type)
-                if task_type == 0:
+                if task_type == 0 or task_type == 9:
                     deviceData = dataDeviceBy(response.get('taskList'))
                     print('正常任务')
                     self.second_conversion_modele(deviceData)
@@ -67,10 +67,10 @@ class moduleClass:
                     self.Retained_modele(retain_data)
                 elif task_type == 5:
                     print('重启手机')
-                elif task_type == 9:
-                    print('点击任务')
-                    deviceData = dataDeviceBy(response.get('taskList'))
-                    self.Click_task(deviceData)
+                # elif task_type == 9:
+                #     print('点击任务')
+                #     deviceData = dataDeviceBy(response.get('taskList'))
+                #     self.Click_task(deviceData)
             else:
                 current_time = time.time()
                 # 计算距离下次请求的剩余时间
@@ -85,7 +85,7 @@ class moduleClass:
                         task_type = response.get('taskList').get('task_type')
                         if response is not None:
                             print('task_type=====>', task_type)
-                            if task_type == 0:
+                            if task_type == 0 or task_type == 9:
                                 deviceData = dataDeviceBy(response.get('taskList'))
                                 print('正常任务')
                                 self.conversion_modele(deviceData, response)
@@ -96,11 +96,11 @@ class moduleClass:
                                 self.Retained_modele(retain_data)
                             elif task_type == 5:
                                 print('重启手机')
-                            elif task_type == 9:
-                                print('点击任务')
-                                self.fileBase.writeFile(response)
-                                deviceData = dataDeviceBy(response.get('taskList'))
-                                self.Click_task(deviceData)
+                            # elif task_type == 9:
+                            #     print('点击任务')
+                            #     self.fileBase.writeFile(response)
+                            #     deviceData = dataDeviceBy(response.get('taskList'))
+                            #     self.Click_task(deviceData)
 
                     else:
                         Dialog.toast("获取任务失败", 2000)

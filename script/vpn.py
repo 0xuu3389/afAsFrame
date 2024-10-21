@@ -255,43 +255,43 @@ class VpnBaseObj:
                 time.sleep(0.5)
             time.sleep(1)
 
-            ImageButton = Selector().packageName("moe.nb4a").type("ImageButton").find()
-            if ImageButton is not None:
-                ImageButton.click()
-                time.sleep(0.5)
-            time.sleep(1)
-
-            SettingsBtn = Selector(2).id("moe.nb4a:id/nav_settings").find()
-            if SettingsBtn is not None:
-                SettingsBtn.click()
-                time.sleep(0.5)
-            time.sleep(1)
-            node = Selector().type("RecyclerView").find()
-            if node:
-                node.slide(-1)
-            time.sleep(2)
-
-            VpnMode = Selector(2).id("moe.nb4a:id/recycler_view").child(8).find()
-            if VpnMode is not None:
-                VpnMode.click()
-                time.sleep(0.5)
-            time.sleep(1)
+            # ImageButton = Selector().packageName("moe.nb4a").type("ImageButton").find()
+            # if ImageButton is not None:
+            #     ImageButton.click()
+            #     time.sleep(0.5)
+            # time.sleep(1)
+            #
+            # SettingsBtn = Selector(2).id("moe.nb4a:id/nav_settings").find()
+            # if SettingsBtn is not None:
+            #     SettingsBtn.click()
+            #     time.sleep(0.5)
+            # time.sleep(1)
+            # node = Selector().type("RecyclerView").find()
+            # if node:
+            #     node.slide(-1)
+            # time.sleep(2)
+            #
+            # VpnMode = Selector(2).id("moe.nb4a:id/recycler_view").child(8).find()
+            # if VpnMode is not None:
+            #     VpnMode.click()
+            #     time.sleep(0.5)
+            # time.sleep(1)
             # SystemApps = Selector().id("moe.nb4a:id/show_system_apps").find()
             # if SystemApps is not None:
             #     SystemApps.click()
             #     time.sleep(0.5)
-            time.sleep(1)
-            self.find_package_proxy(self.gaijiPack)
+            # time.sleep(1)
+            # self.find_package_proxy(self.gaijiPack)
             # self.find_package_proxy(deviceData.packageName)
             # 添加Google三件套和WebView
-            self.find_package_proxy(self.androidWebview)
-            self.find_package_proxy(self.googleFrameWork)
-            self.find_package_proxy(self.googlePlay)
-            self.find_package_proxy(self.googlePlayService)
-            time.sleep(1)
-            action.Key.back()
-            time.sleep(1)
-            action.Key.back()
+            # self.find_package_proxy(self.androidWebview)
+            # self.find_package_proxy(self.googleFrameWork)
+            # self.find_package_proxy(self.googlePlay)
+            # self.find_package_proxy(self.googlePlayService)
+            # time.sleep(1)
+            # action.Key.back()
+            # time.sleep(1)
+            # action.Key.back()
             time.sleep(1)
             fabBtn = Selector().id("moe.nb4a:id/fab").find()
             if fabBtn is not None:
